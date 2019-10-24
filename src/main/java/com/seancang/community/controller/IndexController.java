@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 //表示可以接收前端的请求
 @Controller
-public class HelloController {
-    @GetMapping("/hello1")
-    public String hello(@RequestParam(name = "name1") String na, Model model) {
-        model.addAttribute("name", na);
-        return "greeting";
+public class IndexController {
+    @GetMapping("/")
+    public String index() {
+
+        return "index";
     }
 }
