@@ -18,7 +18,7 @@
                 <span class="sr-only">IT社区</span>
 
             </button>
-            <a class="navbar-brand" href="#">IT社区</a>
+            <a class="navbar-brand" href="/">IT社区</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -77,7 +77,9 @@
                 <div class="container-fluid main">
                     <div class="row">
                         <div class="alert alert-danger col-lg-9 col-md-12 col-sm-12 col-xs-12" th:text="${error}" th:if="${error != null}"></div>
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><button type="submit" class="btn btn-success btn-publish ">发布</button></div>
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:if="${error == null}"></div>
+                        <div><button type="submit" class="btn btn-success btn-publish ">发布</button></div>
 
 
                     </div></div>
