@@ -1,5 +1,6 @@
 package com.seancang.community.controller;
 
+import com.seancang.community.dto.PaginationDTO;
 import com.seancang.community.dto.QuestionDTO;
 import com.seancang.community.mapper.QuestionMapper;
 import com.seancang.community.mapper.UserMapper;
@@ -28,23 +29,25 @@ public class IndexController {
 
     @GetMapping("/")
     public String index(HttpServletRequest request,
-                        Model model) {
+                        Model model,
+                        @RequestParam(name = "page", defaultValue = "1") Integer page,
+                        @RequestParam(name = "size", defaultValue = "5") Integer size) {
 
         Cookie[] cookies = request.getCookies();
         if (cookies != null && cookies.length != 0)
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("token")) {
-                String token = cookie.getValue();
-                User user = userMapper.findByToken(token);
-                if (user != null) {
-                    request.getSession().setAttribute("user", user);
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("token")) {
+                    String token = cookie.getValue();
+                    User user = userMapper.findByToken(token);
+                    if (user != null) {
+                        request.getSession().setAttribute("user", user);
+                    }
+                    break;
                 }
-                break;
             }
-        }
 
-        List<QuestionDTO> questionList = questionService.list();
-        model.addAttribute("questions", questionList);
+        PaginationDTO pagination = questionService.list(page, size);
+        model.addAttribute("pagination", pagination);
         return "index";
     }
 }
